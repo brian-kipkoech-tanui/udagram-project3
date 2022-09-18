@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: reverseproxy
-        image: docker.io/tanui1998/reverseproxy:v3
+        image: docker.io/tanui1998/udagram-reverseproxy:v3
         ports:
         - containerPort: 80
         resources:

@@ -27,7 +27,7 @@ jobs:
             
             docker build -t udagram-frontend ./udagram-frontend
             docker tag udagram-frontend tanui1998/udagram-frontend:v3
-            docker build -t reverseproxy ./udagram-reverseproxy
+            docker build -t udagram-reverseproxy ./udagram-reverseproxy
             docker tag udagram-reverseproxy tanui1998/udagram-reverseproxy:v3
             echo "-------- All images succesfully built----------"
             echo " ------- login in to hub--------"
@@ -36,7 +36,7 @@ jobs:
             docker push tanui1998/udagram-api-feed:v3
             docker push tanui1998/udagram-api-user:v3
             docker push tanui1998/udagram-frontend:v3
-            docker push tanui1998/reverseproxy:v3
+            docker push tanui1998/udagram-reverseproxy:v3
 workflows:
   default:
     jobs:
