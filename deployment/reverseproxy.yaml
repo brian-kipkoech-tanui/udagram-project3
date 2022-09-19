@@ -14,16 +14,14 @@ spec:
     spec:
       containers:
       - name: reverseproxy
-        image: docker.io/tanui1998/udagram-reverseproxy:v4
+        image: docker.io/newthingade/reverseproxy
         ports:
         - containerPort: 80
         resources:
           limits:
             cpu: 1000m
-            memory: 500Mi
           requests:
             cpu: 500m
-            memory: 256Mi
 
 ---
 apiVersion: v1

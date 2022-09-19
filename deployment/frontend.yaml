@@ -14,16 +14,14 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: docker.io/tanui1998/udagram-frontend:v4
+        image: docker.io/newthingade/udagram-frontend
         ports: 
         - containerPort: 80
         resources:
           limits:
             cpu: 500m
-            memory: 512Mi
           requests:
             cpu: 200m
-            memory: 256Mi
 
 ---
 apiVersion: v1
