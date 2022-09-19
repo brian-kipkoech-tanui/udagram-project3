@@ -14,10 +14,10 @@ jobs:
           name: Build docker container for each microservices
           command: |
             echo "--------- Installing dependencies-----------"
-            sudo curl -LO https://nodejs.org/dist/v18.0.0/node-v18.0.0-linux-x64.tar.xz
-            sudo tar -xvf node-v18.0.0-linux-x64.tar.xz
-            sudo cp -r node-v18.0.0-linux-x64/{bin,include,lib,share} /usr/
-            node --version => v18.0.0
+            sudo curl -LO https://nodejs.org/dist/v12.22.12/node-v12.22.12-linux-x64.tar.xz
+            sudo tar -xvf node-v12.22.12-linux-x64.tar.xz
+            sudo cp -r node-v12.22.12-linux-x64/{bin,include,lib,share} /usr/
+            node --version => v12.22.12 
             sudo apt install nodejs
             echo "--------- The images is Building ------------"
             docker build -t udagram-api-feed ./udagram-api-feed
