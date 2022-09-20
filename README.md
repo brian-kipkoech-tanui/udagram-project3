@@ -26,7 +26,7 @@ I Created a PostgreSQL database on AWS RDS (Though locally could also work fine)
 * We will need to use password authentication for this project. This means that a username and password is needed to authenticate and access the database.
 * The port number will need to be set as `5432`. This is the typical port that is used by PostgreSQL so it is usually set to this port by default.
 
-![Database](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/RDS.png?raw=true)
+![Database](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/RDS.png?raw=true)
 
 Once your database is set up, set the config values for environment variables prefixed with `POSTGRES_` in `set_env.sh`.
 * If you set up a local database, your `POSTGRES_HOST` is most likely `localhost`
@@ -36,7 +36,7 @@ Once your database is set up, set the config values for environment variables pr
 ### 2. S3
 I Created an AWS S3 bucket. The S3 bucket is used to store images that are displayed in Udagram.
 
-![S3](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/S3.png?raw=true)
+![S3](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/S3.png?raw=true)
 
 Set the config values for environment variables prefixed with `AWS_` in `set_env.sh`.
 
@@ -53,12 +53,12 @@ I Launched the backend API locally (Similar to course two of udacity programme).
     ```
 * Visiting `http://localhost:8080/api/v0/feed` in my web browser I verified that the application is running, due to the presence of a JSON payload. Postman was a handy tool in testing the API's.
 
-![Monolithic](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/restapi(backend).png?raw=true)
+![Monolithic](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/restapi(backend).png?raw=true)
 
 ### 4. Frontend App
 Launched the frontend app locally.
 
-![frontend](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/frontend.png?raw=true)
+![frontend](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/frontend.png?raw=true)
 
 * To download all the package dependencies, run the command from the directory `udagram-frontend/`:
     ```bash
@@ -111,7 +111,7 @@ docker-compose -f docker-compose-build.yaml build --parallel
 ```
 The following shows the images that were built
 
-![Images](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/imagesrunning.png?raw=true)
+![Images](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/imagesrunning.png?raw=true)
 
 Run the container with the following command
 ```bash
@@ -121,41 +121,41 @@ Visit `http://localhost:8100` in your web browser to verify that the application
 
 - Backend-api-feed
 
-![backend](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/restapi(backend).png?raw=true)
+![backend](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/restapi(backend).png?raw=true)
 
 - The localhost server running
 
-![backend](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/localhostserver.png?raw=true)
+![backend](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/localhostserver.png?raw=true)
 
 - The docker container running, frontend part shown below:
 
-![frontend](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/frontend.png?raw=true)
+![frontend](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/frontend.png?raw=true)
 
-![frontend](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/frontend2.png?raw=true)
+![frontend](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/frontend2.png?raw=true)
 
 #### ii). Continuous Integration
 - Screenshots of successful circleci builds and deployment to dockerhub
 
-![circleci](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/circleci.png.png?raw=true)
+![circleci](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/circleci.png.png?raw=true)
 
-![dockerhub](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/dockerhubrepositories.png?raw=true)
+![dockerhub](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/dockerhubrepositories.png?raw=true)
 
 #### iii). Ochestration using kubernetes
 The kubernetes services was hosted in AWS Elastic Kubernetes Service (EKS).
 
 - the screenshot showing the pods:
 
-![getpods](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/getpods.png?raw=true)
+![getpods](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/getpods.png?raw=true)
 
 - Screenshot showing the command `kubectl get services`:
 
-![describeservices](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/getservice.png?raw=true)
+![describeservices](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/getservice.png?raw=true)
 
 - Screenshot showing the command `kubectl describe services`:
 
-![describeservices](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/describe-service1.png?raw=true)
+![describeservices](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/describe-service1.png?raw=true)
 
-![describeservices](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/describe-service2.png?raw=true)
+![getservices](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/describe-service2.png?raw=true)
 
 ####  Create horizontal pod scaler
 
@@ -172,19 +172,19 @@ kubectl autoscale deployment backend-user --cpu-percent=70 --min=3 --max=5
 ```bash
 kubectl get hpa
 ```
-![describeservices](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/gethpa.png?raw=true)
+![gethpa](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/gethpa.png?raw=true)
 
 - Screenshot of `kubectl describe hpa` command:
 
-![describeservices](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/describehpa.png?raw=true)
+![describehpa](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/describehpa.png?raw=true)
 
 - `kubectl get service` command:
 
-![describeservices](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/getservice.png?raw=true)
+![getservice](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/getservice.png?raw=true)
 
 - `kubectl logs backend-feed-5c86b49c9c-6fngm` gets the logs, useful for debugging:
 
-![describeservices](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/get-logs.png?raw=true)
+![getlogs](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/get-logs.png?raw=true)
 
 
 
