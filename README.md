@@ -136,7 +136,7 @@ Visit `http://localhost:8100` in your web browser to verify that the application
 #### ii). Continuous Integration
 - Screenshots of successful circleci builds and deployment to dockerhub
 
-![circleci](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/circleci.png.png?raw=true)
+![circleci](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/circleci.png?raw=true)
 
 ![dockerhub](https://github.com/brian-kipkoech-tanui/udagram-project3/blob/master/screenshots/dockerhubrepositories.png?raw=true)
 
