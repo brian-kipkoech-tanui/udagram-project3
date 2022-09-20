@@ -8,24 +8,25 @@ The project is split into two parts:
 
 ## Getting Started
 > _tip_: it's recommended that you start with getting the backend API running since the frontend web application depends on the API.
-
+- I followed the recommendation above because frontend was dependent on the backend
 ### Prerequisite
-1. The depends on the Node Package Manager (NPM). You will need to download and install Node from [https://nodejs.com/en/download](https://nodejs.org/en/download/). This will allow you to be able to run `npm` commands.
+1. The project depends on the Node Package Manager (NPM). You will need to download and install Node from [https://nodejs.com/en/download](https://nodejs.org/en/download/). This will allow you to be able to run `npm` commands.
 2. Environment variables will need to be set. These environment variables include database connection details that should not be hard-coded into the application code.
 
 #### Environment Script
-A file named `set_env.sh` has been prepared as an optional tool to help you configure these variables on your local development environment.
+A file named `set_env.sh` that had been prepared as an optional tool to help configure these variables on your local development environment was added to the gitignore for security reasons.
  
-We do _not_ want your credentials to be stored in git. After pulling this `starter` project, run the following command to tell git to stop tracking the script in git but keep it stored locally. This way, you can use the script for your convenience and reduce risk of exposing your credentials.
+I did _not_ want my credentials to be stored in git. After pulling this `starter` project, I ran the following command to tell git to stop tracking the script in git but keep it stored locally. This way, I could use the script for my convenience and reduce risk of exposing my credentials.
 `git rm --cached set_env.sh`
 
-Afterwards, we can prevent the file from being included in your solution by adding the file to our `.gitignore` file.
 
 ### 1. Database
-Create a PostgreSQL database either locally or on AWS RDS. The database is used to store the application's metadata.
+I Created a PostgreSQL database on AWS RDS (Though locally could also work fine). The database is used to store the application's metadata.
 
 * We will need to use password authentication for this project. This means that a username and password is needed to authenticate and access the database.
 * The port number will need to be set as `5432`. This is the typical port that is used by PostgreSQL so it is usually set to this port by default.
+
+![Database](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/RDS.png?raw=true)
 
 Once your database is set up, set the config values for environment variables prefixed with `POSTGRES_` in `set_env.sh`.
 * If you set up a local database, your `POSTGRES_HOST` is most likely `localhost`
@@ -33,12 +34,14 @@ Once your database is set up, set the config values for environment variables pr
 
 
 ### 2. S3
-Create an AWS S3 bucket. The S3 bucket is used to store images that are displayed in Udagram.
+I Created an AWS S3 bucket. The S3 bucket is used to store images that are displayed in Udagram.
+
+![S3](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/S3.png?raw=true)
 
 Set the config values for environment variables prefixed with `AWS_` in `set_env.sh`.
 
 ### 3. Backend API
-Launch the backend API locally. The API is the application's interface to S3 and the database.
+I Launched the backend API locally (Similar to course two of udacity programme). The API is the application's interface to S3 and the database.
 
 * To download all the package dependencies, run the command from the directory `udagram-api/`:
     ```bash
@@ -48,10 +51,14 @@ Launch the backend API locally. The API is the application's interface to S3 and
     ```bash
     npm run dev
     ```
-* You can visit `http://localhost:8080/api/v0/feed` in your web browser to verify that the application is running. You should see a JSON payload. Feel free to play around with Postman to test the API's.
+* Visiting `http://localhost:8080/api/v0/feed` in my web browser I verified that the application is running, due to the presence of a JSON payload. Postman was a handy tool in testing the API's.
+
+![Monolithic](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/restapi(backend).png?raw=true)
 
 ### 4. Frontend App
-Launch the frontend app locally.
+Launched the frontend app locally.
+
+![frontend](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/frontend.png?raw=true)
 
 * To download all the package dependencies, run the command from the directory `udagram-frontend/`:
     ```bash
@@ -69,10 +76,119 @@ Launch the frontend app locally.
     ```bash
     ionic serve
     ```
-* You can visit `http://localhost:8100` in your web browser to verify that the application is running. You should see a web interface.
+* By visiting `http://localhost:8100` in my web browser I verified that the application was running. (I saw a web interface.)
+
 
 ## Tips
-1. Take a look at `udagram-api` -- does it look like we can divide it into two modules to be deployed as separate microservices?
+1. Take a look at `udagram-api` -- does it look like we can divide it into two modules to be deployed as separate microservices? Yes, can be divided into feed and user for backend and a single frontend.
+
+
+- This was acheived by refactoring the monolith application into microservices, by setting up containers using docker, then using circleci for continuous integration and finally using Kubernetes for orchestration of the docker containers.
+- Once you refactor the Udagram application, it will have the following services running internally:
+1) Backend /user/ service - allows users to register and log into a web client.
+2) Backend /feed/ service - allows users to post photos, and process photos using image filtering.
+3) Frontend - It is a basic Ionic client web application that acts as an interface between the user and the backend services.
+4) Nginx as a reverse proxy server - for resolving multiple services running on the same port in separate containers. When different backend services are running on the same port, then a reverse proxy server directs client requests to the appropriate backend server and retrieves resources on behalf of the client.
+
+### 4. Microservices
+#### i). Setting up Docker containers
+
+Navigate to the project directory, and set up the environment variables again
+```bash
+source set_env.sh
+```
+Create images - In the project's parent directory, create a `docker-compose-build.yaml` file . It will create an image for each individual service. Then, you can run the following command to create images locally then run
+
+Make sure the Docker services are running in your local machine
+
+Remove unused and dangling images
+```bash
+docker image prune --all
+```
+Run this command from the directory where you have the "docker-compose-build.yaml" file present
+```bash
+docker-compose -f docker-compose-build.yaml build --parallel
+```
+The following shows the images that were built
+
+![Images](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/imagesrunning.png?raw=true)
+
+Run the container with the following command
+```bash
+docker-compose up
+```
+Visit `http://localhost:8100` in your web browser to verify that the application is running.
+
+- Backend-api-feed
+
+![backend](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/restapi(backend).png?raw=true)
+
+- The localhost server running
+
+![backend](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/localhostserver.png?raw=true)
+
+- The docker container running, frontend part shown below:
+
+![frontend](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/frontend.png?raw=true)
+
+![frontend](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/frontend2.png?raw=true)
+
+#### ii). Continuous Integration
+- Screenshots of successful circleci builds and deployment to dockerhub
+
+![circleci](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/circleci.png.png?raw=true)
+
+![dockerhub](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/dockerhubrepositories.png?raw=true)
+
+#### iii). Ochestration using kubernetes
+The kubernetes services was hosted in AWS Elastic Kubernetes Service (EKS).
+
+- the screenshot showing the pods:
+
+![getpods](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/getpods.png?raw=true)
+
+- Screenshot showing the command `kubectl get services`:
+
+![describeservices](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/getservice.png?raw=true)
+
+- Screenshot showing the command `kubectl describe services`:
+
+![describeservices](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/describe-service1.png?raw=true)
+
+![describeservices](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/describe-service2.png?raw=true)
+
+####  Create horizontal pod scaler
+
+- Installationn
+```bash
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+```
+- Create the HorizontalPodAutoscaler:(Do this for backend-feed and backend-user deployment)
+```bash
+kubectl autoscale deployment backend-feed --cpu-percent=70 --min=3 --max=5
+kubectl autoscale deployment backend-user --cpu-percent=70 --min=3 --max=5
+```
+- Checking the status of the newly created horizontalpodautoscaler(hpa):
+```bash
+kubectl get hpa
+```
+![describeservices](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/gethpa.png?raw=true)
+
+- Screenshot of `kubectl describe hpa` command:
+
+![describeservices](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/describehpa.png?raw=true)
+
+- `kubectl get service` command:
+
+![describeservices](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/getservice.png?raw=true)
+
+- `kubectl logs backend-feed-5c86b49c9c-6fngm` gets the logs, useful for debugging:
+
+![describeservices](https://github.com/brian-kipkoech-tanui/udagram-project3/tree/master/screenshots/get-logs.png?raw=true)
+
+
+
+
 2. The `.dockerignore` file is included for your convenience to not copy `node_modules`. Copying this over into a Docker container might cause issues if your local environment is a different operating system than the Docker image (ex. Windows or MacOS vs. Linux).
 3. It's useful to "lint" your code so that changes in the codebase adhere to a coding standard. This helps alleviate issues when developers use different styles of coding. `eslint` has been set up for TypeScript in the codebase for you. To lint your code, run the following:
     ```bash
